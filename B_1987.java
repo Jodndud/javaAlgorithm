@@ -1,8 +1,6 @@
-package baekjoon;
-
 import java.io.*;
 
-public class B_1987_dfs {
+public class B_1987 {
     static char[][] graph;
     static boolean[] alpha = new boolean[26];
     static int[] dx = {1,0,-1,0}; // 우,상,좌,하
