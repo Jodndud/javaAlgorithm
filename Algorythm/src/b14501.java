@@ -1,6 +1,4 @@
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class b14501 {
     static int max = 0;
@@ -19,11 +17,11 @@ public class b14501 {
             arr[i][1] = Integer.parseInt(input[1]);
         }
 
-        cal(0, 0);
+        dfs(0, 0);
         System.out.println(max);
     }
 
-    private static void cal(int day, int sum) {
+    private static void dfs(int day, int sum) {
         if(day >= tc){
             max = Math.max(max, sum);
             return;
@@ -31,9 +29,9 @@ public class b14501 {
 
         // 상담한다
         if(day + arr[day][0] <= tc){
-            cal(day + arr[day][0], sum + arr[day][1]);
+            dfs(day + arr[day][0], sum + arr[day][1]);
         }
         // 안한다
-        cal(day+1, sum);
+        dfs(day+1, sum);
     }
 }
