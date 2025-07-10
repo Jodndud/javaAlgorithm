@@ -1,4 +1,4 @@
-package 구현;
+package bfs_dfs;
 
 import java.io.*;
 
