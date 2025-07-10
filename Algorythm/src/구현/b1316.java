@@ -1,3 +1,5 @@
+package 구현;
+
 import java.io.*;
 
 public class b1316 {
