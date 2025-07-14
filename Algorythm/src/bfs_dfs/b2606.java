@@ -1,40 +1,59 @@
 package bfs_dfs;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class b2606 {
 
-    static int n;
-    static int node;
-    static List<List<Integer>> arr;
+    static ArrayList<ArrayList<Integer>> array;
+    static boolean[] visited;
+    static int count=0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        n = Integer.parseInt(br.readLine());
-        node = Integer.parseInt(br.readLine());
-        arr = new ArrayList<>();
-        // 각 노드에 ArrayList를 만든다
-        for(int i=0;i<=n;i++){
-            arr.add(new ArrayList<>());
+        int node = Integer.parseInt(br.readLine());
+        int cost = Integer.parseInt(br.readLine());
+
+        // 간선리스트 생성(노드 수 만큼 리스트 만들기)
+        array = new ArrayList<>();
+        for(int i=0;i<=node;i++){
+            array.add(new ArrayList<>());
         }
 
-        // 각 노드(지정)의 ArrayList에 원소를 집어넣는다.
-        for(int i=0;i<node;i++){
+        // 각 노드의 리스트 만들기
+        for(int i=0;i<cost;i++){
             String[] input = br.readLine().split(" ");
             int x = Integer.parseInt(input[0]);
             int y = Integer.parseInt(input[1]);
 
-            arr.get(x).add(y);
-            arr.get(y).add(x);
+            array.get(x).add(y);
+            array.get(y).add(x);
         }
 
+        visited = new boolean[node+1];
+        System.out.println(bfs(1));
+    }
 
+    private static int bfs(int i) {
+        Queue<Integer> q = new LinkedList<>();
+
+        q.add(i);
+        visited[i] = true;
+
+        while(!q.isEmpty()){
+            int node = q.poll();
+
+            for (int j : array.get(node)) {
+                if(!visited[j]){
+                    q.add(j);
+                    visited[j] = true;
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 
 }
