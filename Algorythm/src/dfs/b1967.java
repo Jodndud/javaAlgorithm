@@ -3,9 +3,21 @@ package dfs;
 import java.io.*;
 import java.util.*;
 
+class Node{
+    int to;
+    int dist;
+
+    public Node(int to, int dist) {
+        this.to = to;
+        this.dist = dist;
+    }
+}
+
 public class b1967 {
     static int n;
-    static ArrayList<int[]>[] array;
+    static ArrayList<ArrayList<Node>> array;
+    static boolean[] visited;
+    static int max = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,9 +25,9 @@ public class b1967 {
         n = Integer.parseInt(br.readLine());
 
         // 간선 크기 부여 (n+1개)
-        array = new ArrayList[n+1];
+        array = new ArrayList<>();
         for(int i=0;i<=n;i++){
-            array[i] = new ArrayList<>();
+            array.add(new ArrayList<>());
         }
 
         // 간선 데이터 채우기(양방향)
@@ -25,49 +37,26 @@ public class b1967 {
             int b = Integer.parseInt(st.nextToken());
             int cost = Integer.parseInt(st.nextToken());
 
-            array[a].add(new int[]{b, cost});
-            array[b].add(new int[]{a, cost});
+            array.get(a).add(new Node(b, cost));
+            array.get(b).add(new Node(a, cost));
         }
 
-        int max = 0;
         // 모든 간선 가중치 합 구하기
         for(int i=1;i<=n;i++){
-            for(int j=2;j<=n;j++){
-                if(i<j){
-                    max = Math.max(bfs(i, j), max);
-                }
-            }
+            visited = new boolean[n+1];
+            dfs(i, 0);
         }
         System.out.println(max);
     }
 
-    // start부터 end까지 (start < end)
-    public static int bfs(int start, int end){
-        boolean[] visited = new boolean[n+1]; // visited 초기화
+    static void dfs(int node, int dist){
+        visited[node] = true;
+        max = Math.max(max, dist);
 
-        Queue<int[]> q = new ArrayDeque<>();
-        q.add(new int[]{start, 0}); // 노드와 합
-
-        while(!q.isEmpty()){
-            int[] next = q.poll();
-            int node = next[0];
-            int result = next[1];
-
-            if(node == end){
-                return result;
-            }
-
-            for(int[] j: array[node]){
-                int nNode = j[0];
-                int cost = j[1];
-
-                if(!visited[nNode]){
-                    q.add(new int[]{nNode, result + cost});
-                    visited[nNode] = true;
-                }
+        for(Node next: array.get(node)){
+            if(!visited[next.to]){
+                dfs(next.to, dist + next.dist);
             }
         }
-
-        return -1;
     }
 }
