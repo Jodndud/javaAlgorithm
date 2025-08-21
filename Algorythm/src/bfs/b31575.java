@@ -1,10 +1,9 @@
-package bfs_dfs;
+package bfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class b31575 {
@@ -36,7 +35,7 @@ public class b31575 {
     }
 
     public static String bfs(int i, int j){
-        Queue<int[]> q = new LinkedList<>();
+        Queue<int[]> q = new ArrayDeque<>();
 
         q.add(new int[]{i, j});
         visited[i][j] = true;
