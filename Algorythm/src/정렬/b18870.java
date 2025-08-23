@@ -9,6 +9,7 @@ public class b18870 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
 
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -20,7 +21,6 @@ public class b18870 {
         }
 
         Arrays.sort(sortArray);
-        System.out.println(Arrays.toString(sortArray));
 
         HashMap<Integer, Integer> rankMap = new HashMap<>();
         int rank = 0;
@@ -30,8 +30,9 @@ public class b18870 {
             }
         }
 
-
-
-
+        for(int num : array){
+            sb.append(rankMap.get(num)).append(" ");
+        }
+        System.out.println(sb.toString());
     }
 }
