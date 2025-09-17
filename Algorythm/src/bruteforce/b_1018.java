@@ -1,10 +1,7 @@
 package bruteforce;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Objects;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class b_1018 {
     static int N, M;
@@ -16,19 +13,15 @@ public class b_1018 {
         int end_y = y + 8;
         int count = 0;
 
-        // 첫 번째 칸의 색
-        boolean TF = map[x][y];
+        boolean TF = map[x][y];  // 첫 번째 칸의 색
 
         for(int i=x;i<end_x;i++){
             for( int j=y;j<end_y;j++){
-                // 색이 다를경우 1 증가
-                if(map[i][j] != TF){
+                if(map[i][j] != TF){  // 색이 다를경우 1 증가
                     count++;
                 }
-                // 다음 칸 색 바꿔서 비교
-                TF = (!TF);
+                TF = (!TF);  // 다음 칸 색 바꿔서 비교
             }
-
             TF = !TF;
         }
 
